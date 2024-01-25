@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
     public Comment updateComment(Comment comment) {
         Comment changeableComment = commentRepository.findById(comment.getId())
                 .orElseThrow(() -> new EntityNotFoundException(
-                        MessageFormat.format("Entity with id: {0} not found!", comment.getId())
+                        MessageFormat.format("Comment with id: {0} not found!", comment.getId())
                 ));
 
         BeanUtils.copyProperties(comment, changeableComment);
