@@ -2,6 +2,8 @@ package ru.denisov.news.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import ru.denisov.news.domain.news.News;
 import ru.denisov.news.repository.NewsRepository;
@@ -11,6 +13,7 @@ import ru.denisov.news.service.exception.EntityNotFoundException;
 import java.awt.*;
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Random;
 
 @Repository
 @RequiredArgsConstructor
@@ -23,8 +26,8 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<News> getAllNewsByCategoryId(Long categoryId) {
-        return newsRepository.findAllByCategory_Id(categoryId);
+    public List<News> getAllNewsByCategoryId(Long categoryId, Integer page, Integer countOnPage) {
+        return newsRepository.findAllByCategory_Id(categoryId, PageRequest.of(page, countOnPage)).getContent();
     }
 
     @Override
@@ -59,6 +62,7 @@ public class NewsServiceImpl implements NewsService {
                 .map(News::getId)
                 .filter(newsRepository::existsById)
                 .toList();
+        Long random = new Random().nextLong(10000L, 20000L);
 
         newsRepository.deleteAllById(ids);
     }

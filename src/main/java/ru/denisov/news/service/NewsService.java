@@ -8,7 +8,7 @@ public interface NewsService {
 
     List<News> getAllNews();
 
-    List<News> getAllNewsByCategoryId(Long categoryId);
+    List<News> getAllNewsByCategoryId(Long categoryId, Integer page, Integer countOnPage);
 
     News createNews(News news);
 

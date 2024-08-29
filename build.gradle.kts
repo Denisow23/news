@@ -33,6 +33,9 @@ dependencies {
 	annotationProcessor("org.mapstruct:mapstruct-processor:1.5.3.Final")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("net.javacrumbs.json-unit:json-unit:2.38.0")  // use it?
+	// https://mvnrepository.com/artifact/org.powermock/powermock-module-junit4
+	testImplementation("org.powermock:powermock-module-junit4:2.0.9")
+
 }
 
 tasks.withType<Test> {

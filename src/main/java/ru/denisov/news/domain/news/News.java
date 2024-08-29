@@ -3,9 +3,11 @@ package ru.denisov.news.domain.news;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 import ru.denisov.news.domain.comment.Comment;
 import ru.denisov.news.domain.user.User;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -45,4 +47,7 @@ public class News {
     @Builder.Default
     @ToString.Exclude
     List<Comment> comments = new ArrayList<>();
+
+    @CreationTimestamp
+    Instant createdAt;
 }
