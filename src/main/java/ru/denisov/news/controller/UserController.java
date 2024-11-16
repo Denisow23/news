@@ -2,9 +2,7 @@ package ru.denisov.news.controller;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.control.MappingControl.Use;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,23 +11,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.denisov.news.dtos.RequestStatusDTO;
 import ru.denisov.news.dtos.UserDTO;
 import ru.denisov.news.service.UserService;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/v1/api/user")
+@RequestMapping("/v1/api/users")
 public class UserController {
 
   private final UserService userService;
 
   @PostMapping()
   public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO) {
-    return ResponseEntity.ok(userService.addUser(userDTO));
+    return ResponseEntity.ok(userService.add(userDTO));
   }
 
   @GetMapping
@@ -41,14 +37,15 @@ public class UserController {
     return ResponseEntity.ok(userService.findById(id));
   }
 
-  @DeleteMapping("/delete/{id}")
-  public ResponseEntity<RequestStatusDTO> deleteUser(@PathVariable Long id) {
-    return ResponseEntity.ok(userService.delete(id));
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    userService.deleteById(id);
+    return ResponseEntity.noContent().build();
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<UserDTO> updateUser(@PathVariable Long id) {
-    return ResponseEntity.ok(userService.updateUser(id));
+  public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO updateUser) {
+    return ResponseEntity.ok(userService.update(id, updateUser));
   }
 
 

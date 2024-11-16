@@ -1,4 +1,4 @@
-package ru.denisov.news.domain.news;
+package ru.denisov.news.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,21 +6,18 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.HashSet;
 import java.util.Set;
+import ru.denisov.news.domain.News;
 
 @Entity(name = "news_category")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class NewsCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-
-    String name;
-
+    private Long id;
+    private String name;
     @ManyToMany(mappedBy = "category")
-    Set<News> news = new HashSet<>();
+    private Set<News> news = new HashSet<>();
 }

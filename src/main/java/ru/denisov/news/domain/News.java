@@ -1,10 +1,8 @@
-package ru.denisov.news.domain.news;
+package ru.denisov.news.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.denisov.news.domain.comment.Comment;
-import ru.denisov.news.domain.user.User;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,34 +13,25 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class News {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-
-    String title;
-
-    String text;
-
+    private Long id;
+    private String title;
+    private String text;
     @ManyToMany
     @JoinTable(
             name = "news_category",
             joinColumns = @JoinColumn(name = "news_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    @Builder.Default
-    Set<NewsCategory> category = new HashSet<>();
-
+    private Set<NewsCategory> category = new HashSet<>();
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "author_id")
     @ToString.Exclude
-    User user;
-
+    private User author;
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL)
-    @Builder.Default
     @ToString.Exclude
-    List<Comment> comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 }

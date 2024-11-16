@@ -1,5 +1,5 @@
 package ru.denisov.news.dtos;
 
-public class RequestStatusDTO {
+public class NewsDetailDTO {
 
 }
