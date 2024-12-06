@@ -15,7 +15,7 @@ public interface NewsService {
 
   List<NewsSummaryDTO> getNewsSummary();
 
-  NewsDetailDTO updateNews(NewsDTO newsDTO);
+  NewsDetailDTO updateNews(NewsDTO newsDTO, Long id);
 
   void delete(Long id);
 }

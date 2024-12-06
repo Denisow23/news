@@ -30,15 +30,18 @@ public class CommentController {
   public ResponseEntity<List<CommentDTO>> getCommentsByUser(@RequestParam("user") Long userId) {
     return ResponseEntity.ok(commentService.findByUser(userId));
   }
+
   @PostMapping()
   public ResponseEntity<CommentDTO> addComment(@RequestBody CommentDTO commentDTO) {
     return ResponseEntity.ok(commentService.add(commentDTO));
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<CommentDTO> editComment(@PathVariable Long id,
-      @RequestBody CommentDTO commentDTO) {
-    return ResponseEntity.ok(commentService.updateById(commentDTO));
+  public ResponseEntity<CommentDTO> editComment(
+      @PathVariable Long id,
+      @RequestBody CommentDTO commentDTO
+  ) {
+    return ResponseEntity.ok(commentService.updateById(commentDTO, id));
   }
 
   @PostMapping("/{id}")
@@ -46,6 +49,5 @@ public class CommentController {
     commentService.delete(id);
     return ResponseEntity.noContent().build();
   }
-
 
 }

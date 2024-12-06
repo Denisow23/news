@@ -9,7 +9,7 @@ public interface CommentService {
 
   CommentDTO add(CommentDTO commentDTO);
 
-  CommentDTO updateById(CommentDTO commentDTO);
+  CommentDTO updateById(CommentDTO commentDTO, Long id);
 
   void delete(Long id);
 

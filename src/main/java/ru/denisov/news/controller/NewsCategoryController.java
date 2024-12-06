@@ -24,7 +24,7 @@ public class NewsCategoryController {
   private final NewsCategoryService newsCategoryService;
 
   @PostMapping
-  public ResponseEntity<NewsCategoryDTO> addNewsCategory(@RequestBody NewsCategoryDTO newsCategoryDTO)  {
+  public ResponseEntity<NewsCategoryDTO> addNewsCategory(@RequestBody NewsCategoryDTO newsCategoryDTO) {
     return ResponseEntity.ok(newsCategoryService.add(newsCategoryDTO));
   }
 
@@ -45,8 +45,10 @@ public class NewsCategoryController {
   }
 
   @PutMapping("/id")
-  public ResponseEntity<NewsCategoryDTO> updateNewsCategory(@PathVariable Long id,
-      @RequestBody NewsCategoryDTO categoryDTO) {
+  public ResponseEntity<NewsCategoryDTO> updateNewsCategory(
+      @PathVariable Long id,
+      @RequestBody NewsCategoryDTO categoryDTO
+  ) {
     return ResponseEntity.ok(newsCategoryService.updateById(id, categoryDTO));
   }
 }
