@@ -1,0 +1,1 @@
+ALTER TABLE news_categories RENAME COLUMN name TO category_name;

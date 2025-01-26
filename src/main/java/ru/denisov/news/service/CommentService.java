@@ -1,20 +1,19 @@
 package ru.denisov.news.service;
 
-import java.util.List;
-import org.springframework.stereotype.Service;
-import ru.denisov.news.dtos.CommentDTO;
+import ru.denisov.news.dtos.CommentResponseDTO;
+import ru.denisov.news.dtos.CommentsListResponseDTO;
+import ru.denisov.news.dtos.UpsertCommentDTO;
 
-@Service
 public interface CommentService {
 
-  CommentDTO add(CommentDTO commentDTO);
+  CommentResponseDTO add(UpsertCommentDTO upsertCommentDTO, Long newsId);
 
-  CommentDTO updateById(CommentDTO commentDTO, Long id);
+  CommentResponseDTO updateById(UpsertCommentDTO upsertCommentDTO, Long commentId, Long newsId);
 
-  void delete(Long id);
+  void delete(Long id, Long newsId);
 
-  List<CommentDTO> findByNews(Long newsId);
+  CommentsListResponseDTO findByNews(Long newsId);
 
-  List<CommentDTO> findByUser(Long userId);
+  CommentsListResponseDTO findByUser(Long userId);
 
 }

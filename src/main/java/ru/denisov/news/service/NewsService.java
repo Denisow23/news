@@ -1,21 +1,18 @@
 package ru.denisov.news.service;
 
-import java.util.List;
-import org.springframework.stereotype.Service;
-import ru.denisov.news.dtos.NewsDTO;
-import ru.denisov.news.dtos.NewsDetailDTO;
-import ru.denisov.news.dtos.NewsSummaryDTO;
+import ru.denisov.news.dtos.NewsDetailResponseDTO;
+import ru.denisov.news.dtos.NewsListResponseDTO;
+import ru.denisov.news.dtos.UpsertNewsDTO;
 
-@Service
 public interface NewsService {
 
-  NewsDTO add(NewsDTO newsDTO);
+  NewsDetailResponseDTO add(UpsertNewsDTO newsDTO);
 
-  NewsDetailDTO getNewsDetails(Long id);
+  NewsDetailResponseDTO getNewsDetails(Long id);
 
-  List<NewsSummaryDTO> getNewsSummary();
+  NewsListResponseDTO getNewsSummary();
 
-  NewsDetailDTO updateNews(NewsDTO newsDTO, Long id);
+  NewsDetailResponseDTO updateNews(UpsertNewsDTO newsDTO, Long id);
 
   void delete(Long id);
 }

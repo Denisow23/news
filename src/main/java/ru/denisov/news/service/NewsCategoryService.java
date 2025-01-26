@@ -1,15 +1,18 @@
 package ru.denisov.news.service;
 
-import java.util.List;
-import org.springframework.stereotype.Service;
-import ru.denisov.news.dtos.NewsCategoryDTO;
+import ru.denisov.news.dtos.NewsCategoryListResponseDTO;
+import ru.denisov.news.dtos.NewsCategoryResponseDTO;
+import ru.denisov.news.dtos.UpsertNewsCategoryDTO;
 
-@Service
 public interface NewsCategoryService {
 
-  NewsCategoryDTO add(NewsCategoryDTO newsCategoryDTO);
-  NewsCategoryDTO findById(Long id);
-  List<NewsCategoryDTO> findAll();
+  NewsCategoryResponseDTO add(UpsertNewsCategoryDTO newsCategoryResponseDTO);
+
+  NewsCategoryResponseDTO findById(Long id);
+
+  NewsCategoryListResponseDTO findAll();
+
   void deleteById(Long id);
-  NewsCategoryDTO updateById(Long id, NewsCategoryDTO categoryDTO);
+
+  NewsCategoryResponseDTO updateById(Long id, UpsertNewsCategoryDTO categoryDTO);
 }

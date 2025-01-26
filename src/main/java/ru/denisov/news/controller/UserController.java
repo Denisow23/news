@@ -12,29 +12,33 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.denisov.news.dtos.UserDTO;
+import ru.denisov.news.dtos.CommentsListResponseDTO;
+import ru.denisov.news.dtos.UpsertUserDTO;
+import ru.denisov.news.dtos.UserResponseDTO;
+import ru.denisov.news.service.CommentService;
 import ru.denisov.news.service.UserService;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/v1/api/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
   private final UserService userService;
+  private final CommentService commentService;
 
   @PostMapping()
-  public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO) {
+  public ResponseEntity<UserResponseDTO> addUser(@RequestBody UpsertUserDTO userDTO) {
     return ResponseEntity.ok(userService.add(userDTO));
   }
 
   @GetMapping
-  public ResponseEntity<List<UserDTO>> getAllUsers() {
+  public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
     return ResponseEntity.ok(userService.findAll());
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+  public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long id) {
     return ResponseEntity.ok(userService.findById(id));
   }
 
@@ -45,9 +49,14 @@ public class UserController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO updateUser) {
+  public ResponseEntity<UserResponseDTO> updateUser(
+      @PathVariable Long id, @RequestBody UserResponseDTO updateUser) {
     return ResponseEntity.ok(userService.update(id, updateUser));
   }
 
+  @GetMapping("/{userId}/comments")
+  public ResponseEntity<CommentsListResponseDTO> getCommentsByUser(@PathVariable Long userId) {
+    return ResponseEntity.ok(commentService.findByUser(userId));
+  }
 
 }

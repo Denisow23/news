@@ -1,6 +1,5 @@
 package ru.denisov.news.controller;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -12,29 +11,32 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.denisov.news.dtos.NewsCategoryDTO;
+import ru.denisov.news.dtos.NewsCategoryListResponseDTO;
+import ru.denisov.news.dtos.NewsCategoryResponseDTO;
+import ru.denisov.news.dtos.UpsertNewsCategoryDTO;
 import ru.denisov.news.service.NewsCategoryService;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/v1/api/news/categories")
+@RequestMapping("/api/v1/news/categories")
 public class NewsCategoryController {
 
   private final NewsCategoryService newsCategoryService;
 
   @PostMapping
-  public ResponseEntity<NewsCategoryDTO> addNewsCategory(@RequestBody NewsCategoryDTO newsCategoryDTO) {
-    return ResponseEntity.ok(newsCategoryService.add(newsCategoryDTO));
+  public ResponseEntity<NewsCategoryResponseDTO> addNewsCategory(
+      @RequestBody UpsertNewsCategoryDTO upsertNewsCategoryDTO) {
+    return ResponseEntity.ok(newsCategoryService.add(upsertNewsCategoryDTO));
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<NewsCategoryDTO> getNewsCategory(@PathVariable Long id) {
+  public ResponseEntity<NewsCategoryResponseDTO> getNewsCategory(@PathVariable Long id) {
     return ResponseEntity.ok(newsCategoryService.findById(id));
   }
 
   @GetMapping
-  public ResponseEntity<List<NewsCategoryDTO>> getNewsCategories() {
+  public ResponseEntity<NewsCategoryListResponseDTO> getNewsCategories() {
     return ResponseEntity.ok(newsCategoryService.findAll());
   }
 
@@ -44,10 +46,10 @@ public class NewsCategoryController {
     return ResponseEntity.noContent().build();
   }
 
-  @PutMapping("/id")
-  public ResponseEntity<NewsCategoryDTO> updateNewsCategory(
+  @PutMapping("/{id}")
+  public ResponseEntity<NewsCategoryResponseDTO> updateNewsCategory(
       @PathVariable Long id,
-      @RequestBody NewsCategoryDTO categoryDTO
+      @RequestBody UpsertNewsCategoryDTO categoryDTO
   ) {
     return ResponseEntity.ok(newsCategoryService.updateById(id, categoryDTO));
   }
